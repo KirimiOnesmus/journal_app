@@ -18,7 +18,7 @@ const Register = () => {
           <input type="password" name="password" id="" placeholder='Password' className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500'/>
           <input type="password" name="confirmPassword" id="" placeholder='Confirm Password' className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500'/>
           
-          <p className='text-right w-full'>Already a member? <a href="/" className='text-blue-500'>Login</a></p>
+          <p className='text-right w-full'>Already a member? <a href="./" className='text-blue-500'>Login</a></p>
           <button type="submit" className=' bg-blue-600 w-92 p-2 rounded-lg text-white text-xl cursor-pointer font-medium'>Create Account</button>
           
         </form>
