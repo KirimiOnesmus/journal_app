@@ -10,7 +10,7 @@ const Header = () => {
         <div className="nav-links flex space-x-14 uppercase">
             <a href="/" 
             className='hover:text-blue-500 hover:text-xl hover:font-semibold  flex items-center gap-1 transition duration-500'><FaHome className='text-xl'/>Home</a>
-            <a href="/" className='hover:text-blue-500 hover:text-xl hover:font-semibold flex items-center gap-1 transition duration-500'><FaTrafficLight className='text-xl'/>Features</a>
+            <a href="" className='hover:text-blue-500 hover:text-xl hover:font-semibold flex items-center gap-1 transition duration-500'><FaTrafficLight className='text-xl'/>Features</a>
             <a href="/" className='hover:text-blue-500 hover:text-xl hover:font-semibold flex items-center gap-1 transition duration-500'><LuBrainCircuit className='text-xl'/>Why it Matters</a>
             
         </div>
