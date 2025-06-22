@@ -59,7 +59,11 @@ const Profile = () => {
                             
                         </textarea>
                 </div>
-                <button className='bg-blue-500 py-2 px-4 my-6 md:mx-6 md:my-0 md:mt-2 text-xl text-white rounded-md w-full md:w-60 cursor-pointer'>Update Information</button>
+                <div>
+                    <button className='bg-blue-500 py-2 px-4 my-6 md:mx-6 md:my-0 md:mt-2 text-xl text-white rounded-md w-full md:w-60 cursor-pointer'>Update Information</button>
+                    <button className='bg-red-500 py-2 px-4 my-6 md:mx-6 md:my-0 md:mt-2 text-xl text-white rounded-md w-full md:w-60 cursor-pointer'>Delete Account</button>
+                </div>
+                
             </form>
             
         </div>
