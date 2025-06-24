@@ -14,9 +14,11 @@ const Dashboard = () => {
                 className='rounded-full outline-none md:py-2 py-1 px-4 shadow-lg backdrop-blur-lg focus:shadow-blue-200' />
             </div>
 
-            <div className='Ai right-10 md:right-18 fixed bottom-24 md:bottom-6 shadow-lg backdrop-blur-lg p-2 rounded-full hover:bg-trasparent hover:shadow-blue-300'>
+            <div className='group fixed  right-10 md:right-18 bottom-24 md:bottom-6 bg-transparent p-2 rounded-full '>
                 <AiOutlineWechat className='text-4xl text-blue-500  hover:cursor-pointer '/>
-                 <p className='hidden'>AI Assistant</p>
+                 <p 
+                 className='absolute w-64 bottom-full right-10 mb-2 opacity-0 group-hover:opacity-100 transition duration-300 text-lg mt-1 text-center shadow-lg bg-white/30 backdrop-blur-md px-2 py-1 rounded-lg  shadow-blue-300'
+                 >Chat With Our AI Assistant</p>
             </div>
             <div 
               className="main-contents flex-1 p-4 mt-14 pb-20 md:pb-4 overflow-y-auto shadow-2xl bg-white rounded-lg shadow-blue-400">
