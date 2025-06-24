@@ -5,6 +5,8 @@ import {Homepage,Login,Register,Profile,Dashboard } from './pages'
 import { Entries,CalendarView,Home } from "./components";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
+import emailjs from '@emailjs/browser';
+emailjs.init('lrkHLfAW2LrmvcgC0');
 
 
 function App() {

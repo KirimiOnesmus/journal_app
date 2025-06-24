@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useRef} from 'react'
+import emailjs from '@emailjs/browser';
 import{Header} from '../components'
 import Journaling from '../assets/Journaling.jpg'
 import { FaTelegramPlane } from "react-icons/fa";
@@ -40,6 +41,29 @@ const features = [
 ];
 const today = new Date();
 const Homepage = () => {
+   const form = useRef();
+   const sendEmail=(e)=>{
+    e.preventDefault();
+
+    emailjs
+    .sendForm(
+      'service_fooh3lj',
+      'template_7m3lfm3',
+       form.current,
+      'lrkHLfAW2LrmvcgC0' 
+        
+    )
+    .then(
+      ()=>{
+        console.log('Message sent successfully');
+        e.target.reset();
+        alert('Message sent successfully!');
+      },
+    (error)=>{
+        console.error('Error sending message:', error);
+      alert('Failed to send message, please try again later.');}
+    )
+   }
   return (
     <div className=' flex flex-col'>
       <div>
@@ -112,17 +136,18 @@ const Homepage = () => {
               className='text-center flex items-center pt-2 md:pt-0 text-3xl md:text-4xl gap-4 font-bold my-4'
               >Contact Us <FaTelegramPlane className='text-blue-500' /></h2>
               <p className='text-xl'>Any enquiry feel free to contact us any time. We will get back to you as soon as we can.</p>
-              <form action="" className='flex flex-col  gap-4 mt-6 w-full max-w-md'>
+              <form ref={form} onSubmit={sendEmail} className='flex flex-col  gap-4 mt-6 w-full max-w-md'>
                 <input type="text" name="name" id="name" placeholder='Name'
                 className='p-2 md:backdrop-blur-lg shadow-md bg-white/40 rounded-md outline-0 focus:shadow-lg focus:shadow-blue-200 text-lg'
                 />
-                <input type="email" name="email" id="email" placeholder='Email'
+                <input type="email" name="user_email" id="email" placeholder='Email'
                 className='p-2 md:backdrop-blur-lg shadow-md bg-white/40 rounded-md outline-0 focus:shadow-lg focus:shadow-blue-200 text-lg'
                  />
                 <textarea name="message" id="message" placeholder='Message'
                 className='p-2 md:backdrop-blur-lg shadow-md bg-white/40 rounded-md outline-0 focus:shadow-lg focus:shadow-blue-200 text-lg'
                 ></textarea>
                 <button 
+                type="submit"
                 className='text-white bg-blue-400 py-2 uppercase rounded-sm font-bold cursor-pointer hover:bg-white hover:text-blue-400 hover:border border-blue-400 transition duration-500'
                 >Send</button>
               </form>
