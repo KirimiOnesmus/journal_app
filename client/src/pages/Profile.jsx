@@ -4,8 +4,8 @@ import { FaXTwitter } from "react-icons/fa6";
 import profile from '../assets/profile.png'
 const Profile = () => {
   return (
-    <div className='flex flex-col min-h-screen bg-linear-to-r from-cyan-400 to-blue-100 w-full'>
-        <div className=" md:bg-white/30 backdrop-blur-md px-4 md:px-8 py-4 rounded-lg shadow-lg w-full max-w-5xl mx-auto mt-4">
+    <div className='flex flex-col min-h-screen 0 w-full'>
+        <div className="  px-4 md:px-8 py-4 rounded-lg  w-full max-w-5xl mx-auto mt-4">
             <h2 className='text-3xl font-bold'>Profile Update</h2>
             <form action="">
                 <div className='md:flex md:mx-4 mt-2 justify-between'>
