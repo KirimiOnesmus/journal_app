@@ -4,11 +4,13 @@ import { FaXTwitter } from "react-icons/fa6";
 import profile from '../assets/profile.png'
 
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
-    const{id} = useParams();
+   const user = JSON.parse(localStorage.getItem('user'));// to fetch user data
     const navigate = useNavigate();
+    const id = user?.id;  
     const[userData, setUserData] = useState({
         fullName:' ', 
         userName:'',
@@ -27,6 +29,7 @@ const Profile = () => {
                 try{
                     const res = await axios.get( `http://localhost:5000/api/users/${id}`);
                     setUserData(res.data);
+                    localStorage.setItem('user', JSON.stringify(res.data)); //sync local storage
                 }catch(err){
                     console.error("Error fetching user:",err);
                 }
@@ -34,31 +37,46 @@ const Profile = () => {
             fetchUser();
         },[id]);
 
-        const handleChange = (e) =>{
-            setUserData(prev =>({
-                ...prev, [e.target.name]: e.target.value
-            }));
+        const handleChange = async(e) =>{
+            const {name,value}=e.target;
+
+            const updateData ={...userData,[name]:value};
+            setUserData(updateData);
+
+            try{
+                await axios.put(`http://localhost:5000/api/users/${id}`,updateData);
+                localStorage.setItem('user',JSON.stringify(updateData));
+            }catch(error){
+                console.error('Auto-Update Failed',error);
+                toast.error('Auto Update Failed!');
+            }
+           
         };
 
-        const handleUpdate = async()=>{
+        const handleUpdate = async(e)=>{
+             e.preventDefault()
             try{
-                await axios.put(`http://localhost:5000/api/users/${id}`,userData);
-                alert('Profile updated successfully!');
-                navigate('.../../dashboard')
+               const res = await axios.put(`http://localhost:5000/api/users/${id}`,userData);
+               
+                
+                toast.success(res?.data?.message || "Profile Updated Successfully");
+                setTimeout(()=>{
+                    navigate('/dashboard/home');
+                }, 1500);
             }catch(err){
                 console.error("Update failed:",err);
-                alert("Failed  to Update Profile.")
+                toast.error("Failed  to Update Profile.")
             }
         }
         const handleDelete =async()=>{
             if(window.confirm("Are you sure you want to delete your account?")){
                 try{
-                    await axios.delete(`http://localhost:5000/api/users/${userId}`);
-                    alert("Account deleted successfully.");
+                    await axios.delete(`http://localhost:5000/api/users/${id}`);
+                    toast.warn("Account deleted successfully.");
                     navigate('../../login');
                 }catch(err){
                     console.error('Deletion failed:',err);
-                    alert("Account Deletion Failed. Try again Later")
+                    toast.error("Account Deletion Failed. Try again Later")
                 }
             }
         }
@@ -152,10 +170,12 @@ const Profile = () => {
                 </div>
                 <div>
                     <button 
+                    type='button'
                     onClick={handleUpdate} 
                     className='bg-blue-500 py-2 px-4 my-6 md:mx-6 md:my-0 md:mt-2 text-xl text-white rounded-md w-full md:w-60 cursor-pointer'
                     >Update Information</button>
                     <button 
+                    type='button'
                     onClick={handleDelete}
                     className='bg-red-500 py-2 px-4 my-6 md:mx-6 md:my-0 md:mt-2 text-xl text-white rounded-md w-full md:w-60 cursor-pointer'
                     >Delete Account</button>

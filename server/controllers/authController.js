@@ -60,6 +60,26 @@ exports.loginUser = (req,res)=>{
 
         const token = jwt.sign({id:user.id},process.env.SECRET_KEY,{expiresIn:60});
 
-        res.json({message:'Login Successful',token});
+        res.json({
+            message:'Login Successful',
+            token,
+            user:{
+                id:user.id,
+                fullName:user.fullName,
+                userName:user.userName,
+                email:user.email,
+                bio:user.bio,
+                phone_number:user.phone_number,
+                facebook_handle:user.facebook_handle,
+                instagram_handle:user.instagram_handle,
+                twitter_handle:user.twitter_handle,
+                tiktok_handle:user.tiktok_handle,
+                // profile_picture:user.profile_picture
+
+
+            }
+            
+            
+        });
     })
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-// import Login from './pages/Login'
-// import Register from './pages/Register'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {Homepage,Login,Register,Profile,Dashboard } from './pages'
 import { Entries,CalendarView,Home } from "./components";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -11,22 +11,29 @@ emailjs.init('lrkHLfAW2LrmvcgC0');
 
 function App() {
   return (
-    <BrowserRouter>
+  
+  <>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-         <Route path="/profile/:id" element={<Profile/>} />
+         
         <Route path="/dashboard" element={<Dashboard />}>
-          <Route index element={<Home />} /> 
+          <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="entries" element={<Entries />} />
           <Route path="calendar" element={<CalendarView />} />
+           <Route path="profile" element={<Profile/>} /> 
          
         </Route>
         {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>
+    <ToastContainer position="top-right" autoClose={3000} theme="colored"/>
+  
+  </>
+
   )
 }
 

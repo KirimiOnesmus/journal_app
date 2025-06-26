@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 
 const Register = () => {
@@ -19,7 +21,7 @@ const Register = () => {
 
     e.preventDefault();
     if(formData.password !== formData.confirmPassword){
-      alert("Password do not match!");
+      toast.error("Password do not match!");
       return;
     }
     try{
@@ -31,14 +33,16 @@ const Register = () => {
 
       const userId = response.data.userId;
       if(userId){
-        navigate(`/profile/${response.data.userId}`)
+        // navigate(`/profile/${response.data.userId}`)
+        toast.success("Account created successfully");
+        navigate('/login');
       }else{
-        alert("Registration succeeded but no user ID returned.");
+        toast.error("Registration succeeded but no user ID returned.");
       }
       
     }catch(error){
         console.error(error.response?.data || error.message);
-      alert('registration Failed')
+      toast.error('registration Failed')
 
     }
   }
