@@ -1,15 +1,37 @@
 
 import React, { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const EntriesForm = ({onClose}) => {
     const [title, setTitle] = useState("");
     const [mood, setMood] = useState("");
     const [content, setContent] = useState("");
-    const handleSubmit = (e) => {
+
+    const user =JSON.parse(localStorage.getItem('user'));
+    const userId =user?.id;
+
+    const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle submit logic here
-    alert("Entry saved!");
-    onClose(); 
+
+
+
+    if(!user?.id) return toast.error('User not loggged in');
+    const newEntry ={
+      user_id:userId,
+      title,
+      mood,
+      content,
+    };
+    try{
+      const res = await axios.post('http://localhost:5000/api/entries', newEntry);
+      toast.success(res.data.message);
+      onClose();
+    }catch(error){
+      console.error("Failed to save entry:",error);
+      toast.error("Failed to save the entry")
+    }
+
      };
   return (
      <div 
