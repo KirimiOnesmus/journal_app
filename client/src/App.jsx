@@ -16,12 +16,13 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+         <Route path="/profile/:id" element={<Profile/>} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Home />} /> 
           <Route path="home" element={<Home />} />
           <Route path="entries" element={<Entries />} />
           <Route path="calendar" element={<CalendarView />} />
-          <Route path="profile" element={<Profile/>} />
+         
         </Route>
         {/* Add more routes as needed */}
       </Routes>
