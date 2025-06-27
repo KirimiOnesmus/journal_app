@@ -4,6 +4,7 @@ import{Header} from '../components'
 import Journaling from '../assets/Journaling.jpg'
 import { FaTelegramPlane } from "react-icons/fa";
 import { MdOutlineEmail,MdOutlinePhone, MdWhatsapp,MdAccessTime } from "react-icons/md";
+import { toast } from 'react-toastify';
 const features = [
   {
     title: "Daily Journaling",
@@ -57,11 +58,11 @@ const Homepage = () => {
       ()=>{
         console.log('Message sent successfully');
         e.target.reset();
-        alert('Message sent successfully!');
+        toast.success('Message sent successfully!');
       },
     (error)=>{
         console.error('Error sending message:', error);
-      alert('Failed to send message, please try again later.');}
+      toast.error('Failed to send message, please try again later.');}
     )
    }
   return (
@@ -156,7 +157,7 @@ const Homepage = () => {
               <div className="card bg-blue-500 text-white p-6 rounded-md shadow-lg ">
                 <h2 className='text-3xl font-bold'>Info</h2>
                 <ul className='mt-4 flex flex-col gap-2 md:gap-8 w-90 h-fit md:h-max'>
-                  <li className='flex items-center gap-4 text-lg font-extralight'> <MdOutlineEmail  className='text-2xl'/> info@dailyjournal.co.ke</li>
+                  <li className='flex items-center gap-4 text-lg font-extralight'> <MdOutlineEmail  className='text-2xl'/> dailyjournal254@gmail.com</li>
                   <li className='flex items-center gap-4 text-lg font-extralight'> <MdOutlinePhone className='text-2xl' />+254768444502</li>
                   <li className='flex items-center gap-4 text-lg font-extralight'> <MdWhatsapp className='text-2xl' /> +254768444502</li>
                   <li className='flex items-center gap-4 text-lg font-extralight'> <MdAccessTime  className='text-2xl'/>09:00 - 17:00</li>

@@ -1,16 +1,18 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
+import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
 import './calendar-custom.css';
 
 const CalendarView = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [entries,setEntries] = useState([]);
+  const [ modalEntry, setModalEntry] = useState(null);
 
-  const entries = [
-    { date: '2025-06-18', title: 'A Calm Day', mood: '😊', content: 'Felt relaxed and productive.' },
-    { date: '2025-06-15', title: 'Overwhelmed', mood: '😔', content: 'Too many tasks, very draining.' }
-  ];
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const userId = user?.id;
 
 
   const formatDate = (date) => {
@@ -19,13 +21,32 @@ const CalendarView = () => {
     return localDate.toISOString().split('T')[0]; 
   };
 
+
+    useEffect(()=>{
+      const fetchEntries= async()=>{
+        try {
+          const res= await axios.get(`http://localhost:5000/api/entries/user/${userId}`);
+          const formatted = res.data.map(entry=>({
+            ...entry,
+            date: formatDate(new Date(entry.created_at)),
+          }));
+          setEntries(formatted);
+        } catch (error) {
+          
+          console.error('Failed to fetch calendar entries:', error);
+        }
+      };
+      if(userId) fetchEntries();
+
+    },[userId]);
+
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
       const formattedDate = formatDate(date);
       const entry = entries.find(entry => entry.date === formattedDate);
       if (entry) {
         return (
-          <div className="flex justify-center items-center mt-1 text-xl">
+          <div className="flex justify-center items-center  font-bold text-md text-white">
             {entry.mood}
           </div>
         );
@@ -34,18 +55,12 @@ const CalendarView = () => {
     return null;
   };
 
-//   const selectedEntry = entries.find(entry => entry.date === formatDate(selectedDate));
-
-  //Modal for showing entry details
-    const [modalEntry, setModalEntry] = useState(null);
-
-    const handleDateClick = (date) => {
-    const formatted = formatDate(date);
-    const entry = entries.find(e => e.date === formatted);
-    setSelectedDate(date); // still highlight it
-    if (entry) setModalEntry(entry);
-    };
-
+  const handleDateClick =(date)=>{
+    const formatted= formatDate(date);
+    const entry = entries.find(e=>e.date === formatted);
+    setSelectedDate(date);
+    if(entry) setModalEntry(entry);
+  }
   return (
     <div className="p-4">
       <h2 className="text-2xl font-semibold mb-4">Journal Calendar</h2>
@@ -73,14 +88,16 @@ const CalendarView = () => {
             <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full relative">
             <button
                 onClick={() => setModalEntry(null)}
-                className="absolute top-5 right-5 text-gray-600 hover:text-red-500 text-xl hover:cursor-pointer "
+                className="absolute top-5 right-5 font-bold text-blue-600 hover:text-red-500 text-xl hover:cursor-pointer "
             >
                 X
             </button>
-            <h3 className="text-xl font-bold mb-2">{modalEntry.title}</h3>
-            <p><strong>Mood:</strong> {modalEntry.mood}</p>
-            <p><strong>Date:</strong> {modalEntry.date}</p>
-            <p className="mt-2">{modalEntry.content}</p>
+            <h3 className="text-2xl font-bold mb-2 text-center">{modalEntry.title}</h3>
+            <div className='flex justify-between text-xl'>
+              <p><strong>Mood:</strong> {modalEntry.mood}</p>
+              <p><strong>Date:</strong> {modalEntry.date}</p>
+            </div>
+            <p className="mt-2 text-gray-600">{modalEntry.content}</p>
             </div>
         </div>
         )}

@@ -2,10 +2,12 @@ import React,{useState} from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; 
 
 const Login = () => {
 
     const  navigate = useNavigate();
+     const [showPassword, setShowPassword] = useState(false);
     const [ formData,setFormData] =useState(
         {
         email:'',
@@ -50,14 +52,23 @@ const handleSubmit= async(e)=>{
                     onChange={handleChange}
                     required 
                     className='mb-4 p-2 border border-gray-300 rounded-lg w-80 outline-0 focus:border-blue-400'/>
-                <input 
-                type="password" 
-                name='password'
-                className='mb-4 p-2 border border-gray-300 rounded-lg w-80 outline-0 focus:border-blue-400'
-                placeholder='Password'
-                 onChange={handleChange}
-                required
-                />
+                    <div className='relative w-80'>
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                name='password'
+                                className='mb-4 p-2 border border-gray-300 rounded-lg w-80 outline-0 focus:border-blue-400'
+                                placeholder='Password'
+                                onChange={handleChange}
+                                required
+                            />
+                            <span
+                                className="absolute right-3 top-3 text-xl text-gray-600 cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                                >
+                                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                            </span>
+                    </div>
+
                 <div 
                 className="forgotpassword flex justify-between items-center w-80 pb-6"
                 >

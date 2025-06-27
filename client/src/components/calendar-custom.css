@@ -37,3 +37,25 @@
 .react-calendar__navigation button:hover {
   background-color: #56bbf1;
 }
+
+/* Home Calendar custom css */
+
+.home-calendar .mood-day abbr {
+  display: none !important;
+}
+
+/* 🎯 Style mood emoji in center */
+.home-calendar .mood-emoji {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+ .home-calendar .react-calendar__tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem; /* adjust emoji size */
+  padding: 0.4rem;
+}

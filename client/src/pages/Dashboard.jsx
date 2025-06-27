@@ -3,14 +3,19 @@ import { Navbar } from '../components'
 import { AiOutlineWechat } from "react-icons/ai";
 import{Home,Entries,CalendarView} from '../components'
 import { Outlet } from "react-router-dom";
+import { useSearch } from '../context/SearchContext';
 
 const Dashboard = () => {
+   const { searchTerm, setSearchTerm } = useSearch();
   return (
     <div className='flex h-screen overflow-hidden'>
         <Navbar />
         <main className='flex-1 p-6 bg-gray-100 min-h-screen overflow-scroll overflow-x-hidden relative'>
             <div className="search-bar right-10 top-6 fixed">
-                <input type="search" name="" id="" placeholder='Search ...' 
+                <input type="search" 
+                value={searchTerm}
+                placeholder='Search ...' 
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className='rounded-full outline-none md:py-2 py-1 px-4 shadow-lg backdrop-blur-lg focus:shadow-blue-200' />
             </div>
 

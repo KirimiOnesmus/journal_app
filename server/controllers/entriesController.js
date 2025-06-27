@@ -30,16 +30,20 @@ exports.createEntry = async (req, res) => {
 
 // Get all entries by user
 exports.getEntriesByUser = async (req, res) => {
-  const userId = req.user.id;
-    if (!userId) {
+ const userId = req.params.userId;
+    if (!userId || isNaN(userId)) {
     return res.status(400).json({ message: 'User ID is required' });
   }
 
   try {
-    const [entries] = await db.execute(
-      'SELECT * FROM entries WHERE user_id = ?',
+     const result = await db.execute(
+      
+      'SELECT * FROM entries WHERE user_id = ? ORDER BY created_at DESC',
       [userId]
     );
+
+    const entries = result[0]; 
+    
     res.status(200).json(entries);
   } catch (error) {
     console.error('Failed Getting Entries:', error);
@@ -50,7 +54,7 @@ exports.getEntriesByUser = async (req, res) => {
 // Update entry
 exports.updateEntry = async (req, res) => {
   const { id } = req.params;
-  const { title, mood, content } = req.body;
+  const { title, mood, content,user_id } = req.body;
     if (!user_id) {
     return res.status(400).json({ message: 'User ID is required' });
   }
@@ -79,9 +83,9 @@ exports.updateEntry = async (req, res) => {
 // Delete entry
 exports.deleteEntry = async (req, res) => {
   const { id } = req.params;
-  const user_id = req.body;
+  const {user_id} = req.body;
 
-    if (!user_id) {
+    if (!user_id || isNaN(user_id)) {
     return res.status(400).json({ message: 'User ID is required' });
   }
 

@@ -2,12 +2,12 @@ import React,{useState} from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; 
 
 
 const Register = () => {
   const navigate = useNavigate();
-
+ const [showPassword, setShowPassword] = useState(false);
   const [formData,setFormData] = useState({
       fullName: ' ',
       userName:' ',
@@ -63,8 +63,24 @@ const Register = () => {
           <input type="text" name="fullName" id="" placeholder='Your Name' onChange={handleChange} className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500' required/>
           <input type="text" name="userName" id="" placeholder='Username' onChange={handleChange} className='  w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500' required/>
           <input type="email" name="email" id="" placeholder='Your Email' onChange={handleChange} className='  w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500'required/>
-          <input type="password" name="password" id="" placeholder='Password' onChange={handleChange} className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500' required/>
-          <input type="password" name="confirmPassword" id="" placeholder='Confirm Password' onChange={handleChange} className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500' required/>
+          
+          <div className="relative ">
+            <input type={showPassword ?"text":"password"}
+             name="password" id="password" 
+             placeholder='Password' onChange={handleChange} className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500' required/>
+            <span
+                className="absolute right-3 top-3 text-xl text-gray-600 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+                >
+                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+          </div>
+             <input type={showPassword ? "text":"password"} 
+             name="confirmPassword" id="confirm password" 
+             placeholder='Confirm Password' onChange={handleChange}
+              className=' w-92 p-2 rounded-lg shadow-lg bg-white/30 outline-none focus:border border-blue-500' required/>
+        
+        
           
           <p className='text-right w-full'>Already a member? <a href="./login" className='text-blue-500'>Login</a></p>
           <button type="submit" className=' bg-blue-600 w-92 p-2 rounded-lg text-white text-xl cursor-pointer font-medium'
