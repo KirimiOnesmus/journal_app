@@ -16,7 +16,7 @@ const Profile = () => {
         userName:'',
         email:'',
         phone_number:'',
-        password:'',
+        // password:'',
         bio:'', 
         facebook_handle:'', 
         tiktok_handle:'',
